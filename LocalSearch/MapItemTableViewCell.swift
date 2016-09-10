@@ -20,8 +20,20 @@ class MapItemTableViewCell: UITableViewCell {
     }
 
     func update(searchCompletion: MKLocalSearchCompletion) {
-        nameLabel.text = searchCompletion.title
+        let nameFontSize = nameLabel.font.pointSize
+
+        let titleAttributes: [String: Any] = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: nameFontSize),
+            NSForegroundColorAttributeName: nameLabel.textColor]
+        let titleNonBoldAttributes = [
+            NSFontAttributeName: UIFont.systemFont(ofSize: nameFontSize)
+        ]
+        let titleString = NSMutableAttributedString(string: searchCompletion.title, attributes: titleAttributes)
+        for range in searchCompletion.titleHighlightRanges as [NSRange] {
+            titleString.addAttributes(titleNonBoldAttributes, range: range)
+        }
+        nameLabel.attributedText = titleString
+
         addressLabel.text = searchCompletion.subtitle
     }
-
 }

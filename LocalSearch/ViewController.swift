@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 
         locationManager.delegate = self
         searchCompleter.delegate = self
-        searchCompleter.filterType = .locationsAndQueries
+        searchCompleter.filterType = .locationsOnly
     }
 
     override func viewDidAppear(_ animated: Bool) {
